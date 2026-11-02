@@ -261,7 +261,7 @@ def may_backtrack_badly(node: Node) -> bool:
     which is finite but astronomically large. A long chain of unbounded runs such as
     ``.*a.*b.*c.*d`` is polynomial, but of a high enough degree to stall as well.
 
-    Each of those shapes hung the training data pipeline at some point. The test
+    Training data generation stalled twice before this check was broad enough. It
     over-approximates on purpose: flagged targets go through the derivative matcher,
     which is slower and always terminates.
     """

@@ -41,7 +41,7 @@ from .dsl import (
     to_regex,
     underapprox,
 )
-from .executor import BOTH, MUST_ACCEPT, MUST_REJECT, RegexRunner, Verdict
+from .executor import BOTH, MUST_ACCEPT, MUST_REJECT, BudgetExceeded, RegexRunner, Verdict
 from .grammar import DecodeState
 from .model import DecodeCache, HoleInfo, RegexTransformer, legal_logits
 
@@ -49,6 +49,10 @@ Mode = Literal["top1", "filter", "guided"]
 
 # How far past the beam width to look for survivors at one depth, as a multiple of width.
 _MAX_OVERDRAW = 4
+# Filling holes with .* is what makes sketches slow, and a sketch that times out is kept
+# anyway, so waiting long for a verdict buys nothing. The first benchmark run used the
+# 250 ms limit of finished regexes here, and one task spent its whole budget on timeouts.
+_SKETCH_TIMEOUT = 0.05
 
 
 @dataclass(slots=True)
@@ -125,11 +129,16 @@ class _TaskSearch:
         self.verdicts: dict[tuple[str, int], bool] = {}
         self.found: list[Candidate] = []
 
-    def _execute(self, queries: list[tuple[str, int]]) -> None:
+    def _execute(self, queries: list[tuple[str, int]], timeout: float | None = None) -> None:
         fresh = [q for q in dict.fromkeys(queries) if q not in self.verdicts]
         if not fresh:
             return
-        answers = self.runner.check(fresh, self.positives, self.negatives)
+        try:
+            answers = self.runner.check(
+                fresh, self.positives, self.negatives, timeout, self.deadline
+            )
+        except BudgetExceeded:
+            raise _OutOfTime from None
         self.result.queries += len(fresh)
         for query, verdict in zip(fresh, answers, strict=True):
             self.result.timeouts += verdict is Verdict.TIMEOUT
@@ -157,7 +166,7 @@ class _TaskSearch:
 
     def _viable(self, children: list[_Beam]) -> list[_Beam]:
         queries = [self._sketch_queries(child) for child in children]
-        self._execute([q for group in queries for q in group])
+        self._execute([q for group in queries for q in group], _SKETCH_TIMEOUT)
         kept = [
             child
             for child, group in zip(children, queries, strict=True)

@@ -188,7 +188,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     benchmark = commands.add_parser("benchmark", help="generate the held-out task file")
     benchmark.add_argument("--out", default="data/benchmark.jsonl")
-    benchmark.add_argument("--per-tier", type=int, default=150)
+    benchmark.add_argument("--per-tier", type=int, default=100)
     benchmark.add_argument("--seed", type=int, default=2026)
     benchmark.set_defaults(run=_command_benchmark)
 

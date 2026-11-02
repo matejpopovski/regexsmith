@@ -154,8 +154,8 @@ class HoleInfo:
 class Memory:
     """Encoder output as attention keys and values shared by every decoder layer.
 
-    One projection instead of one per layer costs little accuracy here and removes the
-    largest single line in the training profile; it also makes beam search cheaper.
+    One projection instead of one per layer saves work in every training step and leaves
+    beam search a single pair of tensors to hold on to.
     """
 
     keys: Tensor

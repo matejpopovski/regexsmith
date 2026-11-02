@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import enum
 import json
+import math
 import os
 import select
 import subprocess
@@ -28,11 +29,16 @@ class Verdict(enum.Enum):
 _CODES = {b"1": Verdict.PASS, b"0": Verdict.FAIL, b"e": Verdict.ERROR}
 
 
+class BudgetExceeded(Exception):
+    """The caller's overall deadline passed while a batch was running."""
+
+
 class RegexRunner:
     """Checks batches of patterns against examples in a killable subprocess.
 
     A query that does not answer within ``timeout`` gets a TIMEOUT verdict, the worker is
     killed and replaced, and the rest of the batch carries on. Callers never see a hang.
+    A batch of slow patterns can still add up, so ``check`` also takes an absolute deadline.
     """
 
     def __init__(self, timeout: float = 0.25) -> None:
@@ -74,17 +80,26 @@ class RegexRunner:
         queries: Sequence[tuple[str, int]],
         positives: Sequence[str],
         negatives: Sequence[str],
+        timeout: float | None = None,
+        deadline: float = math.inf,
     ) -> list[Verdict]:
-        """Run ``(pattern, mode)`` queries, where mode says which examples to enforce."""
+        """Run ``(pattern, mode)`` queries, where mode says which examples to enforce.
+
+        ``timeout`` overrides the per-query limit for this call. Raises BudgetExceeded once
+        ``deadline``, in ``time.perf_counter`` terms, has passed.
+        """
+        limit = self.timeout if timeout is None else timeout
         verdicts: list[Verdict] = []
         while len(verdicts) < len(queries):
             pending = queries[len(verdicts) :]
-            answered, hung = self._run_until_hang(pending, positives, negatives)
+            answered, hung = self._run_until_hang(pending, positives, negatives, limit, deadline)
             verdicts.extend(answered)
             if hung:
+                self.close()
+                if time.perf_counter() >= deadline:
+                    raise BudgetExceeded
                 verdicts.append(Verdict.TIMEOUT)
                 self.timeouts += 1
-                self.close()
         self.queries_run += len(queries)
         return verdicts
 
@@ -93,6 +108,8 @@ class RegexRunner:
         queries: Sequence[tuple[str, int]],
         positives: Sequence[str],
         negatives: Sequence[str],
+        limit: float,
+        deadline: float,
     ) -> tuple[list[Verdict], bool]:
         process = self._worker()
         message = {"pos": list(positives), "neg": list(negatives), "queries": list(queries)}
@@ -104,9 +121,9 @@ class RegexRunner:
         fd = process.stdout.fileno()
         verdicts: list[Verdict] = []
         buffer = b""
-        deadline = time.perf_counter() + self.timeout
+        query_deadline = time.perf_counter() + limit
         while len(verdicts) < len(queries):
-            wait = deadline - time.perf_counter()
+            wait = min(query_deadline, deadline) - time.perf_counter()
             ready, _, _ = select.select([fd], [], [], max(wait, 0.0))
             if not ready:
                 return verdicts, True
@@ -117,5 +134,5 @@ class RegexRunner:
             *lines, buffer = buffer.split(b"\n")
             if lines:
                 verdicts.extend(_CODES[line] for line in lines)
-                deadline = time.perf_counter() + self.timeout
+                query_deadline = time.perf_counter() + limit
         return verdicts, False

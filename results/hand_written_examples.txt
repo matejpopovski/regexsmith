@@ -1,0 +1,57 @@
+== examples/constant.txt
+8 must match, 7 must not
+beam width 16, 18 sketches pruned, 144 regex runs, 0 timeouts, 0.14 s
+[A-Z]+(_[A-Z]+)*
+  also passes: ([A-Z]\w?[A-Z]+)+
+  also passes: ([A-Z]+_?[A-Z]{1,2})+
+  also passes: ([A-Z][A-Z]?_?[A-Z]+)+
+
+●─┬─[A-Z]─┬┬────────────────┬─●
+  └───<───┘└┬─"_"─┬─[A-Z]─┬┬┘
+            │     └───<───┘│
+            └──────<───────┘
+
+== examples/ipv4.txt
+6 must match, 6 must not
+beam width 16, 56 sketches pruned, 293 regex runs, 0 timeouts, 0.21 s
+\d{1,3}\.\d{1,3}\.\d{1,3}\.?\d{1,3}
+
+●─┬─\d────┬─"."─┬─\d────┬─"."─┬─\d────┬┬─────┬┬─\d────┬─●
+  └< 1-3x ┘     └< 1-3x ┘     └< 1-3x ┘└─"."─┘└< 1-3x ┘
+
+== examples/kebab.txt
+7 must match, 6 must not
+beam width 256, 3628 sketches pruned, 8235 regex runs, 0 timeouts, 5.00 s
+no regex passes every example within the budget
+
+== examples/log_time.txt
+6 must match, 7 must not
+beam width 16, 42 sketches pruned, 453 regex runs, 0 timeouts, 0.28 s
+\d\d(:\d)+(\d|:\d\d|\d:\d\d)
+  also passes: \d\d(:\d)+(\d|:\d\d|[0-9a-f]:\d\d)
+  also passes: \d\d(:\d)+(\d|:\d\d|\d:\d[0-9a-f])
+  also passes: \d\d(:\d)+(\d|:\d\d|\d:[0-9a-f]\d)
+
+●──\d──\d─┬─":"──\d─┬┬─\d──────────────┬─●
+          └────<────┘├─":"──\d──\d─────┤
+                     └─\d──":"──\d──\d─┘
+
+== examples/mixed_hard.txt
+6 must match, 6 must not
+beam width 128, 3151 sketches pruned, 5716 regex runs, 0 timeouts, 5.00 s
+no regex passes every example within the budget
+
+== examples/ticket.txt
+8 must match, 8 must not
+beam width 16, 10 sketches pruned, 53 regex runs, 0 timeouts, 0.24 s
+[A-Z]{2,4}-\d+
+  also passes: [A-Z]{2,4}-\d{1,4}
+
+●─┬─[A-Z]─┬─"-"─┬─\d─┬─●
+  └< 2-4x ┘     └─<──┘
+
+== examples/version.txt
+7 must match, 7 must not
+beam width 128, 4254 sketches pruned, 7193 regex runs, 0 timeouts, 5.02 s
+no regex passes every example within the budget
+

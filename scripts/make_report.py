@@ -14,6 +14,7 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
+matplotlib.rcParams["svg.hashsalt"] = "regexsmith"
 import matplotlib.pyplot as plt
 
 from regexsmith.evaluate import summarize
@@ -83,7 +84,7 @@ def solve_rate_chart(summary: dict, path: Path) -> None:
     )
     legend.set_in_layout(True)
     figure.tight_layout(rect=(0, 0, 1, 0.92))
-    figure.savefig(path, facecolor=SURFACE)
+    figure.savefig(path, facecolor=SURFACE, metadata={"Date": None})
     plt.close(figure)
 
 
@@ -128,7 +129,7 @@ def cactus_chart(records: list[dict], budget: float, path: Path) -> None:
     )
     figure.tight_layout()
     figure.subplots_adjust(right=0.74)
-    figure.savefig(path, facecolor=SURFACE)
+    figure.savefig(path, facecolor=SURFACE, metadata={"Date": None})
     plt.close(figure)
 
 
@@ -205,6 +206,20 @@ def paired(records: list[dict], first: str, second: str, grade: str) -> dict:
     return report
 
 
+def exact_by_budget(records: list[dict]) -> dict:
+    """Percent of tiers 1-5 solved exactly with an answer by each point in time."""
+    report: dict = {}
+    for method in ("guided", "filter", "enumerative"):
+        rows = [r for r in records if r["method"] == method and r["tier"] > 0]
+        report[method] = {
+            str(limit): round(
+                100 * sum(r["exact"] and r["time"] <= limit for r in rows) / len(rows), 1
+            )
+            for limit in (0.005, 0.01, 0.05, 0.2, 1.0, 5.0)
+        }
+    return report
+
+
 def search_effort(records: list[dict]) -> dict:
     report: dict = {}
     for method in ("filter", "guided"):
@@ -253,6 +268,7 @@ def main(results: Path = DEFAULT_RESULTS) -> None:
         "guided_vs_enumerative_generalizes": paired(
             records, "guided", "enumerative", "generalizes"
         ),
+        "exact_by_budget": exact_by_budget(records),
         "search_effort": search_effort(records),
     }
     (results / "comparison.json").write_text(json.dumps(comparison, indent=2) + "\n")

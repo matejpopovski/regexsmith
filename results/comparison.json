@@ -15,7 +15,7 @@
     "2": {
       "only_guided": 0,
       "only_filter": 0,
-      "both": 90,
+      "both": 89,
       "tasks": 100
     },
     "3": {
@@ -25,9 +25,9 @@
       "tasks": 100
     },
     "4": {
-      "only_guided": 3,
+      "only_guided": 1,
       "only_filter": 0,
-      "both": 31,
+      "both": 32,
       "tasks": 100
     },
     "5": {
@@ -53,25 +53,25 @@
     "2": {
       "only_guided": 1,
       "only_filter": 0,
-      "both": 98,
+      "both": 97,
       "tasks": 100
     },
     "3": {
-      "only_guided": 2,
-      "only_filter": 0,
-      "both": 90,
+      "only_guided": 1,
+      "only_filter": 1,
+      "both": 89,
       "tasks": 100
     },
     "4": {
-      "only_guided": 10,
+      "only_guided": 8,
       "only_filter": 0,
-      "both": 71,
+      "both": 72,
       "tasks": 100
     },
     "5": {
-      "only_guided": 19,
-      "only_filter": 1,
-      "both": 24,
+      "only_guided": 22,
+      "only_filter": 0,
+      "both": 22,
       "tasks": 100
     }
   },
@@ -89,7 +89,7 @@
       "tasks": 100
     },
     "2": {
-      "only_guided": 78,
+      "only_guided": 77,
       "only_enumerative": 2,
       "both": 12,
       "tasks": 100
@@ -101,7 +101,7 @@
       "tasks": 100
     },
     "4": {
-      "only_guided": 34,
+      "only_guided": 33,
       "only_enumerative": 0,
       "both": 0,
       "tasks": 100
@@ -127,7 +127,7 @@
       "tasks": 100
     },
     "2": {
-      "only_guided": 65,
+      "only_guided": 64,
       "only_enumerative": 2,
       "both": 27,
       "tasks": 100
@@ -139,7 +139,7 @@
       "tasks": 100
     },
     "4": {
-      "only_guided": 52,
+      "only_guided": 51,
       "only_enumerative": 0,
       "both": 1,
       "tasks": 100
@@ -151,20 +151,46 @@
       "tasks": 100
     }
   },
+  "exact_by_budget": {
+    "guided": {
+      "0.005": 0.2,
+      "0.01": 1.8,
+      "0.05": 22.2,
+      "0.2": 51.0,
+      "1.0": 55.2,
+      "5.0": 56.0
+    },
+    "filter": {
+      "0.005": 0.2,
+      "0.01": 1.8,
+      "0.05": 31.0,
+      "0.2": 52.2,
+      "1.0": 54.2,
+      "5.0": 55.6
+    },
+    "enumerative": {
+      "0.005": 15.4,
+      "0.01": 16.4,
+      "0.05": 18.8,
+      "0.2": 19.0,
+      "1.0": 19.2,
+      "5.0": 19.6
+    }
+  },
   "search_effort": {
     "filter": {
       "median_widest_pass": 16,
-      "mean_regex_runs": 1682.4,
+      "mean_regex_runs": 1282.7,
       "mean_sketches_pruned": 0.0,
       "regex_timeouts": 1,
       "tasks_with_a_timeout": 1
     },
     "guided": {
       "median_widest_pass": 16,
-      "mean_regex_runs": 1671.4,
-      "mean_sketches_pruned": 851.1,
-      "regex_timeouts": 33,
-      "tasks_with_a_timeout": 6
+      "mean_regex_runs": 1436.7,
+      "mean_sketches_pruned": 731.4,
+      "regex_timeouts": 65,
+      "tasks_with_a_timeout": 9
     },
     "enumerative": {
       "median_candidates_per_second": 106707.4444902379,

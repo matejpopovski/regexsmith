@@ -27,8 +27,8 @@ class RecordingRunner(RegexRunner):
         super().__init__()
         self.hung: list[str] = []
 
-    def check(self, queries, positives, negatives):
-        verdicts = super().check(queries, positives, negatives)
+    def check(self, queries, *args, **kwargs):
+        verdicts = super().check(queries, *args, **kwargs)
         self.hung += [
             pattern
             for (pattern, _), verdict in zip(queries, verdicts, strict=True)
