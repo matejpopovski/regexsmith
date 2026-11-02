@@ -132,7 +132,7 @@ def train(
         num_workers=config.workers,
         prefetch_factor=4 if config.workers else None,
         persistent_workers=config.workers > 0,
-        timeout=300 if config.workers else 0,
+        timeout=120 if config.workers else 0,
     )
 
     log_path = run_dir / "metrics.jsonl"

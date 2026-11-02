@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 417 147" width="417" height="147" role="img">
+<style>
+.rail{fill:none;stroke:#7ee787;stroke-width:1.6}
+.arrow{fill:#7ee787}
+.literal{fill:#10261a;stroke:#7ee787;stroke-width:1.4}
+.class{fill:#132036;stroke:#79c0ff;stroke-width:1.4}
+text{font:14px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.literal-text{fill:#aff5b4}.class-text{fill:#a5d6ff}
+.count{fill:#8b949e;font-size:11px}.caption{fill:#8b949e;font-size:12px}
+</style>
+<rect width="417" height="147" rx="8" fill="#0d1117"/>
+<text class="caption" x="18" y="24" xml:space="preserve">[A-Z]+(_[A-Z]+)*</text>
+<circle cx="23.0" cy="55.0" r="4" fill="#7ee787"/>
+<path class="rail" d="M23.0 55.0 H44.0"/>
+<path class="rail" d="M44.0 55.0 H60.0"/>
+<path class="rail" d="M122.0 55.0 H138.0"/>
+<rect class="class" x="60.0" y="42.0" width="62.0" height="26" rx="2"/>
+<text class="class-text" x="91.0" y="59.5" text-anchor="middle" xml:space="preserve">[A-Z]</text>
+<path class="rail" d="M130.0 55.0 V74.0 q0 6 -6 6 H58.0 q-6 0 -6 -6 V55.0"/>
+<path class="arrow" d="M95.0 76.0 l-8 4 l8 4 z"/>
+<path class="rail" d="M138.0 55.0 H154.0"/>
+<path class="rail" d="M154.0 55.0 H373.2"/>
+<path class="rail" d="M154.0 55.0 q9.0 0 9.0 9.0 V71.0 q0 9.0 9.0 9.0"/>
+<path class="rail" d="M373.2 55.0 q-9.0 0 -9.0 9.0 V71.0 q0 9.0 -9.0 9.0"/>
+<path class="rail" d="M170.0 80.0 H186.0"/>
+<path class="rail" d="M341.2 80.0 H357.2"/>
+<rect class="literal" x="186.0" y="67.0" width="45.2" height="26" rx="12"/>
+<text class="literal-text" x="208.6" y="84.5" text-anchor="middle" xml:space="preserve">&quot;_&quot;</text>
+<path class="rail" d="M231.2 80.0 H247.2"/>
+<path class="rail" d="M247.2 80.0 H263.2"/>
+<path class="rail" d="M325.2 80.0 H341.2"/>
+<rect class="class" x="263.2" y="67.0" width="62.0" height="26" rx="2"/>
+<text class="class-text" x="294.2" y="84.5" text-anchor="middle" xml:space="preserve">[A-Z]</text>
+<path class="rail" d="M333.2 80.0 V99.0 q0 6 -6 6 H261.2 q-6 0 -6 -6 V80.0"/>
+<path class="arrow" d="M298.2 101.0 l-8 4 l8 4 z"/>
+<path class="rail" d="M349.2 80.0 V117.0 q0 6 -6 6 H184.0 q-6 0 -6 -6 V80.0"/>
+<path class="arrow" d="M267.6 119.0 l-8 4 l8 4 z"/>
+<path class="rail" d="M172.0 80.0 H170.0"/>
+<path class="rail" d="M357.2 80.0 H355.2"/>
+<path class="rail" d="M373.2 55.0 H394.2"/>
+<circle cx="394.2" cy="55.0" r="4" fill="#7ee787"/>
+</svg>

@@ -107,6 +107,7 @@ class _TaskSearch:
         negatives: Sequence[str],
         runner: RegexRunner | None,
         guided: bool,
+        started: float,
         deadline: float,
         result: SearchResult,
     ) -> None:
@@ -120,8 +121,9 @@ class _TaskSearch:
         self.guided = guided
         self.deadline = deadline
         self.result = result
-        self.started = time.perf_counter()
+        self.started = started
         self.verdicts: dict[tuple[str, int], bool] = {}
+        self.found: list[Candidate] = []
 
     def _execute(self, queries: list[tuple[str, int]]) -> None:
         fresh = [q for q in dict.fromkeys(queries) if q not in self.verdicts]
@@ -164,11 +166,11 @@ class _TaskSearch:
         self.result.pruned += len(children) - len(kept)
         return kept
 
-    def _accept(self, finished: list[_Beam], found: list[Candidate]) -> None:
+    def _accept(self, finished: list[_Beam]) -> None:
         self.result.finished += len(finished)
         candidates = [Candidate(b.tree(), b.log_prob) for b in finished]
         if self.runner is None:
-            found.extend(candidates)
+            self.found.extend(candidates)
             return
         queries = [(to_regex(c.regex), BOTH) for c in candidates]
         self._execute(queries)
@@ -176,7 +178,7 @@ class _TaskSearch:
             raise _OutOfTime
         for candidate, query in zip(candidates, queries, strict=True):
             if self.verdicts[query]:
-                found.append(candidate)
+                self.found.append(candidate)
                 if self.result.time_to_first is None:
                     self.result.time_to_first = time.perf_counter() - self.started
 
@@ -216,11 +218,10 @@ class _TaskSearch:
             ),
         )
 
-    def run(self, width: int) -> list[Candidate]:
+    def run(self, width: int) -> None:
         cache = self.model.start_decoding(self.memory)
         beams = [_Beam((), DecodeState(), 0.0)]
         last_tokens = [BOS_ID]
-        found: list[Candidate] = []
         for _ in range(MAX_TOKENS):
             if time.perf_counter() > self.deadline:
                 raise _OutOfTime
@@ -230,17 +231,16 @@ class _TaskSearch:
             scores = legal_logits(logits, legal) + totals.unsqueeze(1)
             pool = min(width * _MAX_OVERDRAW, int(legal.sum()))
             live, finished = self._expand(beams, scores, pool, width)
-            self._accept(finished, found)
+            self._accept(finished)
             if not live:
                 break
             # Scores only fall as a beam grows, so nothing alive can overtake the best
             # solution once it has dropped below it.
-            if found and max(c.log_prob for c in found) >= live[0].log_prob:
+            if self.found and max(c.log_prob for c in self.found) >= live[0].log_prob:
                 break
             cache = cache.select(torch.tensor([b.parent for b in live], device=self.device))
             last_tokens = [b.tokens[-1] for b in live]
             beams = live
-        return sorted(found, key=lambda c: -c.log_prob)
 
 
 @torch.inference_mode()
@@ -263,20 +263,23 @@ def synthesize(
         negatives,
         None if config.mode == "top1" else runner,
         config.mode == "guided",
+        started,
         deadline,
         result,
     )
     if config.mode == "top1":
         result.widest_pass = config.top1_width
-        result.solutions = search.run(config.top1_width)[:1]
+        search.run(config.top1_width)
     else:
         width = config.start_width
         try:
-            while width <= config.max_width and not result.solutions:
+            while width <= config.max_width and not search.found:
                 result.widest_pass = width
-                result.solutions = search.run(width)
+                search.run(width)
                 width *= 2
         except _OutOfTime:
             pass
+    ranked = sorted(search.found, key=lambda c: -c.log_prob)
+    result.solutions = ranked[:1] if config.mode == "top1" else ranked
     result.elapsed = time.perf_counter() - started
     return result

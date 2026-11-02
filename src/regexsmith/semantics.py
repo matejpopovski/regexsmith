@@ -28,6 +28,7 @@ def _mask(chars: str) -> int:
 
 _CLASS_MASK = {name: _mask(c.chars) for name, c in CLASSES.items()}
 _EMPTY, _EPS = 0, 1
+_MAX_UNBOUNDED_RUNS = 4
 
 
 @dataclass(frozen=True, slots=True)
@@ -240,20 +241,38 @@ def matches(node: Node, text: str) -> bool:
     return algebra.matches(algebra.compile(node), text)
 
 
-def may_backtrack_badly(node: Node, under_loop: bool = False) -> bool:
-    """True if a backtracking engine could need exponential time on this regex.
+def _is_repeat(tok: str) -> bool:
+    if not tok.startswith("q:"):
+        return False
+    high = QUANTIFIERS[tok[2:]][1]
+    return high is None or high > 1
 
-    The danger is a body that can match one string in several ways sitting under an
-    unbounded loop: a nested variable quantifier as in ``(a+)+``, or an alternation as
-    in ``(\\d|[0-9a-f])+``. The second shape has no nested star, and it did hang the data
-    pipeline until this check covered it. The test over-approximates, which is fine:
-    task generation routes these targets through the derivative matcher, which is
-    slower and always terminates.
+
+def _count_unbounded(node: Node) -> int:
+    own = node.tok in ("q:*", "q:+")
+    return own + sum(_count_unbounded(kid) for kid in node.kids)
+
+
+def may_backtrack_badly(node: Node) -> bool:
+    """True if a backtracking engine might not finish on a 40-character string.
+
+    The danger is a body that can match one string in several ways sitting inside any
+    repetition: ``(a+b?)+``, ``(\\d|[0-9a-f])+``, or with a counted loop, ``((a|b|a){8}){8}``,
+    which is finite but astronomically large. A long chain of unbounded runs such as
+    ``.*a.*b.*c.*d`` is polynomial, but of a high enough degree to stall as well.
+
+    Each of those shapes hung the training data pipeline at some point. The test
+    over-approximates on purpose: flagged targets go through the derivative matcher,
+    which is slower and always terminates.
     """
+    return _count_unbounded(node) >= _MAX_UNBOUNDED_RUNS or _ambiguous_loop(node, False)
+
+
+def _ambiguous_loop(node: Node, under_loop: bool) -> bool:
     if under_loop:
         tok = node.tok
         variable = tok.startswith("q:") and QUANTIFIERS[tok[2:]][0] != QUANTIFIERS[tok[2:]][1]
         if variable or tok == "alt":
             return True
-    loop = under_loop or node.tok in ("q:*", "q:+")
-    return any(may_backtrack_badly(kid, loop) for kid in node.kids)
+    loop = under_loop or _is_repeat(node.tok)
+    return any(_ambiguous_loop(kid, loop) for kid in node.kids)

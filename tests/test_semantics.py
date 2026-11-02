@@ -64,10 +64,13 @@ def test_state_limit_reports_unknown_instead_of_guessing():
         (r"(\d|[0-9a-f])+", True),
         (r"(a{1,3}b)*", True),
         (r"([a-z]+-)*[a-z]+", True),
+        (r"((a|b){8}c){8}", True),
+        (r"(.*a){4}", True),
+        (r"a*b*c*d*", True),
         (r"[a-z]+-\d+", False),
         (r"(ab)+", False),
         (r"(a{3}b)+", False),
-        (r"(a|b){3}", False),
+        (r"(a|b)?", False),
     ],
 )
 def test_backtracking_risk(text, risky):

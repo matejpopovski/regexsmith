@@ -5,8 +5,9 @@ the only dependable timeout is killing a separate process. This file is started 
 ``python -I -S`` and imports nothing outside the standard library, which keeps a
 respawn after a kill to tens of milliseconds and keeps it clear of torch and Metal.
 
-Protocol: one JSON object per line on stdin, one result per line on stdout, flushed
-per query. The parent watches that stream, so it always knows which query hung.
+Protocol: a "ready" line once imports are done, then one JSON object per line on stdin
+and one result per line on stdout, flushed per query. The parent watches that stream,
+so it always knows which query hung, and a slow start is never mistaken for a hang.
 """
 
 import json
@@ -31,6 +32,8 @@ def run(query: list, positives: list[str], negatives: list[str]) -> str:
 
 def main() -> None:
     stdout = sys.stdout
+    stdout.write("ready\n")
+    stdout.flush()
     for line in sys.stdin:
         request = json.loads(line)
         positives, negatives = request["pos"], request["neg"]

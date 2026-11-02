@@ -15,6 +15,7 @@ from pathlib import Path
 MUST_ACCEPT, MUST_REJECT = 1, 2
 BOTH = MUST_ACCEPT | MUST_REJECT
 _WORKER = Path(__file__).with_name("_regex_worker.py")
+_STARTUP_TIMEOUT = 30.0
 
 
 class Verdict(enum.Enum):
@@ -34,7 +35,7 @@ class RegexRunner:
     killed and replaced, and the rest of the batch carries on. Callers never see a hang.
     """
 
-    def __init__(self, timeout: float = 0.1) -> None:
+    def __init__(self, timeout: float = 0.25) -> None:
         self.timeout = timeout
         self.queries_run = 0
         self.timeouts = 0
@@ -62,6 +63,10 @@ class RegexRunner:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.DEVNULL,
             )
+            ready, _, _ = select.select([self._process.stdout.fileno()], [], [], _STARTUP_TIMEOUT)
+            if not ready or not os.read(self._process.stdout.fileno(), 64).startswith(b"ready"):
+                self.close()
+                raise RuntimeError("regex worker failed to start")
         return self._process
 
     def check(

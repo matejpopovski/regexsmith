@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 627 112" width="627" height="112" role="img">
+<style>
+.rail{fill:none;stroke:#7ee787;stroke-width:1.6}
+.arrow{fill:#7ee787}
+.literal{fill:#10261a;stroke:#7ee787;stroke-width:1.4}
+.class{fill:#132036;stroke:#79c0ff;stroke-width:1.4}
+text{font:14px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.literal-text{fill:#aff5b4}.class-text{fill:#a5d6ff}
+.count{fill:#8b949e;font-size:11px}.caption{fill:#8b949e;font-size:12px}
+</style>
+<rect width="627" height="112" rx="8" fill="#0d1117"/>
+<text class="caption" x="18" y="24" xml:space="preserve">\d{1,3}\.\d{1,3}\.\d{1,3}\.?\d{1,3}</text>
+<circle cx="23.0" cy="55.0" r="4" fill="#7ee787"/>
+<path class="rail" d="M23.0 55.0 H44.0"/>
+<path class="rail" d="M44.0 55.0 H60.0"/>
+<path class="rail" d="M96.8 55.0 H112.8"/>
+<rect class="class" x="60.0" y="42.0" width="36.8" height="26" rx="2"/>
+<text class="class-text" x="78.4" y="59.5" text-anchor="middle" xml:space="preserve">\d</text>
+<path class="rail" d="M104.8 55.0 V74.0 q0 6 -6 6 H58.0 q-6 0 -6 -6 V55.0"/>
+<path class="arrow" d="M82.4 76.0 l-8 4 l8 4 z"/>
+<text class="count" x="78.4" y="95.0" text-anchor="middle">1-3x</text>
+<path class="rail" d="M112.8 55.0 H128.8"/>
+<rect class="literal" x="128.8" y="42.0" width="45.2" height="26" rx="12"/>
+<text class="literal-text" x="151.4" y="59.5" text-anchor="middle" xml:space="preserve">&quot;.&quot;</text>
+<path class="rail" d="M174.0 55.0 H190.0"/>
+<path class="rail" d="M190.0 55.0 H206.0"/>
+<path class="rail" d="M242.8 55.0 H258.8"/>
+<rect class="class" x="206.0" y="42.0" width="36.8" height="26" rx="2"/>
+<text class="class-text" x="224.4" y="59.5" text-anchor="middle" xml:space="preserve">\d</text>
+<path class="rail" d="M250.8 55.0 V74.0 q0 6 -6 6 H204.0 q-6 0 -6 -6 V55.0"/>
+<path class="arrow" d="M228.4 76.0 l-8 4 l8 4 z"/>
+<text class="count" x="224.4" y="95.0" text-anchor="middle">1-3x</text>
+<path class="rail" d="M258.8 55.0 H274.8"/>
+<rect class="literal" x="274.8" y="42.0" width="45.2" height="26" rx="12"/>
+<text class="literal-text" x="297.4" y="59.5" text-anchor="middle" xml:space="preserve">&quot;.&quot;</text>
+<path class="rail" d="M320.0 55.0 H336.0"/>
+<path class="rail" d="M336.0 55.0 H352.0"/>
+<path class="rail" d="M388.8 55.0 H404.8"/>
+<rect class="class" x="352.0" y="42.0" width="36.8" height="26" rx="2"/>
+<text class="class-text" x="370.4" y="59.5" text-anchor="middle" xml:space="preserve">\d</text>
+<path class="rail" d="M396.8 55.0 V74.0 q0 6 -6 6 H350.0 q-6 0 -6 -6 V55.0"/>
+<path class="arrow" d="M374.4 76.0 l-8 4 l8 4 z"/>
+<text class="count" x="370.4" y="95.0" text-anchor="middle">1-3x</text>
+<path class="rail" d="M404.8 55.0 H420.8"/>
+<path class="rail" d="M420.8 55.0 H498.0"/>
+<path class="rail" d="M420.8 55.0 q9.0 0 9.0 9.0 V71.0 q0 9.0 9.0 9.0"/>
+<path class="rail" d="M498.0 55.0 q-9.0 0 -9.0 9.0 V71.0 q0 9.0 -9.0 9.0"/>
+<rect class="literal" x="436.8" y="67.0" width="45.2" height="26" rx="12"/>
+<text class="literal-text" x="459.4" y="84.5" text-anchor="middle" xml:space="preserve">&quot;.&quot;</text>
+<path class="rail" d="M438.8 80.0 H436.8"/>
+<path class="rail" d="M482.0 80.0 H480.0"/>
+<path class="rail" d="M498.0 55.0 H514.0"/>
+<path class="rail" d="M514.0 55.0 H530.0"/>
+<path class="rail" d="M566.8 55.0 H582.8"/>
+<rect class="class" x="530.0" y="42.0" width="36.8" height="26" rx="2"/>
+<text class="class-text" x="548.4" y="59.5" text-anchor="middle" xml:space="preserve">\d</text>
+<path class="rail" d="M574.8 55.0 V74.0 q0 6 -6 6 H528.0 q-6 0 -6 -6 V55.0"/>
+<path class="arrow" d="M552.4 76.0 l-8 4 l8 4 z"/>
+<text class="count" x="548.4" y="95.0" text-anchor="middle">1-3x</text>
+<path class="rail" d="M582.8 55.0 H603.8"/>
+<circle cx="603.8" cy="55.0" r="4" fill="#7ee787"/>
+</svg>

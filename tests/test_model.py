@@ -55,6 +55,20 @@ def test_incremental_decoding_matches_full_decoding(tiny_model):
             assert torch.allclose(logits, full[:, i], atol=1e-4)
 
 
+def test_beams_over_a_shared_memory_match_separate_decoding(tiny_model):
+    chars, labels = encode_examples([(["ab1"], ["x"])])
+    tokens = torch.tensor([[BOS_ID], [5], [9]])
+    contexts = torch.tensor([[0], [1], [3]])
+    holes = HoleInfo(contexts, torch.tensor([[1], [2], [3]]))
+    with torch.no_grad():
+        memory = tiny_model.encode(chars, labels)
+        shared, _ = tiny_model.step(tiny_model.start_decoding(memory), tokens, holes)
+        for i in range(3):
+            one = HoleInfo(contexts[i : i + 1], holes.open_holes[i : i + 1])
+            alone, _ = tiny_model.step(tiny_model.start_decoding(memory), tokens[i : i + 1], one)
+            assert torch.allclose(alone[0], shared[i], atol=1e-4)
+
+
 def test_selecting_beams_keeps_them_aligned(tiny_model):
     batch = _batch()
     parents = torch.tensor([2, 2, 0, 3])

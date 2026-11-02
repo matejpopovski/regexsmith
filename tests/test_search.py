@@ -65,6 +65,7 @@ def test_pruning_never_rejects_a_prefix_of_a_true_solution(tiny_model, tier):
                 task.negatives,
                 runner,
                 True,
+                0.0,
                 float("inf"),
                 SearchResult(),
             )
@@ -76,7 +77,7 @@ def test_pruning_never_rejects_a_prefix_of_a_true_solution(tiny_model, tier):
 def test_pruning_rejects_a_dead_sketch(tiny_model):
     with RegexRunner() as runner, torch.inference_mode():
         search = _TaskSearch(
-            tiny_model, ["abc", "abd"], ["ab"], runner, True, float("inf"), SearchResult()
+            tiny_model, ["abc", "abd"], ["ab"], runner, True, 0.0, float("inf"), SearchResult()
         )
         assert _sketch_is_kept(search, ["cat", "lit:a"])
         assert not _sketch_is_kept(search, ["cat", "lit:z"])

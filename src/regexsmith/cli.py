@@ -126,8 +126,11 @@ def _command_benchmark(args: argparse.Namespace) -> int:
 
 
 def _command_evaluate(args: argparse.Namespace) -> int:
+    import torch
+
     from .evaluate import load_tasks, run_benchmark
 
+    torch.set_num_threads(args.threads)
     tasks = load_tasks(Path(args.tasks))
     if args.limit:
         tasks = tasks[:: max(len(tasks) // args.limit, 1)]
@@ -140,6 +143,13 @@ def _command_evaluate(args: argparse.Namespace) -> int:
         args.jobs,
         Path(args.out),
     )
+    return 0
+
+
+def _command_merge(args: argparse.Namespace) -> int:
+    from .evaluate import merge_runs
+
+    merge_runs([Path(run) for run in args.runs], Path(args.out))
     return 0
 
 
@@ -191,11 +201,17 @@ def build_parser() -> argparse.ArgumentParser:
     )
     evaluate.add_argument("--budget", type=float, default=5.0)
     evaluate.add_argument("--checkpoint", default=str(DEFAULT_CHECKPOINT))
-    evaluate.add_argument("--device", default="mps")
+    evaluate.add_argument("--device", default="cpu", help="scripts/bench_decode.py says why")
+    evaluate.add_argument("--threads", type=int, default=1, help="CPU threads for the model")
     evaluate.add_argument("--jobs", type=int, default=4, help="processes for the enumerator")
     evaluate.add_argument("--out", default="results")
     evaluate.add_argument("--limit", type=int, help="evenly subsample to about this many tasks")
     evaluate.set_defaults(run=_command_evaluate)
+
+    merge = commands.add_parser("merge", help="combine evaluation directories run in parallel")
+    merge.add_argument("runs", nargs="+")
+    merge.add_argument("--out", default="results")
+    merge.set_defaults(run=_command_merge)
     return parser
 
 

@@ -1,0 +1,12 @@
++ GET /users/42 200
++ POST /orders 201
++ GET /health 200
++ PUT /users/7 204
++ DELETE /orders/19 404
++ GET /items/3/tags 500
+- get /users 200
+- GET users 200
+- GET /users/42
+- PATCH /users 200
+- GET /users/42 20
+- GET /users/42 2000

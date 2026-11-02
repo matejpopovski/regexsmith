@@ -64,7 +64,7 @@ class Batch:
         return HoleInfo(self.contexts, self.open_holes)
 
     def to(self, device: torch.device) -> Batch:
-        return Batch(*(t.to(device, non_blocking=True) for t in vars(self).values()))
+        return Batch(*(t.to(device) for t in vars(self).values()))
 
 
 def collate(tasks: Sequence[Task], shuffle: random.Random | None = None) -> Batch:

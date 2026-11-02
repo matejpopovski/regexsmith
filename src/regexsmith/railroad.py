@@ -288,7 +288,7 @@ def _draw(item, x: float, y: float, out: list[str]) -> None:
             else:
                 out.append(_curve_down(x, y, row_y, 1))
                 out.append(_curve_down(x + size.width, y, row_y, -1))
-                out.append(_line(x + _GAP + branch_size.width, row_y, x + size.width - _RADIUS))
+                out.append(_line(x + _GAP + branch_size.width, row_y, x + size.width - 2 * _RADIUS))
                 out.append(_line(x + _RADIUS * 2, row_y, x + _GAP))
             _draw(branch, x + _GAP, row_y, out)
             if index + 1 < len(sizes):

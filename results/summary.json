@@ -1,0 +1,812 @@
+{
+  "meta": {
+    "budget_seconds": 5.0,
+    "tasks": 536,
+    "device": "cpu",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.12.11",
+    "checkpoint_sha256": "5ab44ee3b426fc80f51e5688c554e2496e6e4afafaec9ef8cdd8ff51c3797084"
+  },
+  "methods": {
+    "enumerative": {
+      "0": {
+        "consistent": {
+          "successes": 23,
+          "total": 36,
+          "rate": 0.6389,
+          "ci95": [
+            0.4757,
+            0.7752
+          ]
+        },
+        "generalizes": {
+          "successes": 12,
+          "total": 36,
+          "rate": 0.3333,
+          "ci95": [
+            0.2021,
+            0.4967
+          ]
+        },
+        "exact": {
+          "successes": 5,
+          "total": 36,
+          "rate": 0.1389,
+          "ci95": [
+            0.0608,
+            0.2866
+          ]
+        },
+        "median_seconds_when_answered": 0.2822,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "1": {
+        "consistent": {
+          "successes": 100,
+          "total": 100,
+          "rate": 1.0,
+          "ci95": [
+            0.963,
+            1.0
+          ]
+        },
+        "generalizes": {
+          "successes": 87,
+          "total": 100,
+          "rate": 0.87,
+          "ci95": [
+            0.7902,
+            0.9224
+          ]
+        },
+        "exact": {
+          "successes": 84,
+          "total": 100,
+          "rate": 0.84,
+          "ci95": [
+            0.7558,
+            0.899
+          ]
+        },
+        "median_seconds_when_answered": 0.0016,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "2": {
+        "consistent": {
+          "successes": 87,
+          "total": 100,
+          "rate": 0.87,
+          "ci95": [
+            0.7902,
+            0.9224
+          ]
+        },
+        "generalizes": {
+          "successes": 29,
+          "total": 100,
+          "rate": 0.29,
+          "ci95": [
+            0.2101,
+            0.3854
+          ]
+        },
+        "exact": {
+          "successes": 14,
+          "total": 100,
+          "rate": 0.14,
+          "ci95": [
+            0.0853,
+            0.2214
+          ]
+        },
+        "median_seconds_when_answered": 0.0455,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "3": {
+        "consistent": {
+          "successes": 41,
+          "total": 100,
+          "rate": 0.41,
+          "ci95": [
+            0.3187,
+            0.508
+          ]
+        },
+        "generalizes": {
+          "successes": 2,
+          "total": 100,
+          "rate": 0.02,
+          "ci95": [
+            0.0055,
+            0.07
+          ]
+        },
+        "exact": {
+          "successes": 0,
+          "total": 100,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.037
+          ]
+        },
+        "median_seconds_when_answered": 0.1009,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "4": {
+        "consistent": {
+          "successes": 8,
+          "total": 100,
+          "rate": 0.08,
+          "ci95": [
+            0.0411,
+            0.15
+          ]
+        },
+        "generalizes": {
+          "successes": 1,
+          "total": 100,
+          "rate": 0.01,
+          "ci95": [
+            0.0018,
+            0.0545
+          ]
+        },
+        "exact": {
+          "successes": 0,
+          "total": 100,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.037
+          ]
+        },
+        "median_seconds_when_answered": 1.2342,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "5": {
+        "consistent": {
+          "successes": 1,
+          "total": 100,
+          "rate": 0.01,
+          "ci95": [
+            0.0018,
+            0.0545
+          ]
+        },
+        "generalizes": {
+          "successes": 0,
+          "total": 100,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.037
+          ]
+        },
+        "exact": {
+          "successes": 0,
+          "total": 100,
+          "rate": 0.0,
+          "ci95": [
+            0.0,
+            0.037
+          ]
+        },
+        "median_seconds_when_answered": 0.153,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      }
+    },
+    "filter": {
+      "0": {
+        "consistent": {
+          "successes": 30,
+          "total": 36,
+          "rate": 0.8333,
+          "ci95": [
+            0.6811,
+            0.9213
+          ]
+        },
+        "generalizes": {
+          "successes": 25,
+          "total": 36,
+          "rate": 0.6944,
+          "ci95": [
+            0.5314,
+            0.82
+          ]
+        },
+        "exact": {
+          "successes": 19,
+          "total": 36,
+          "rate": 0.5278,
+          "ci95": [
+            0.3701,
+            0.6801
+          ]
+        },
+        "median_seconds_when_answered": 0.0222,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "1": {
+        "consistent": {
+          "successes": 100,
+          "total": 100,
+          "rate": 1.0,
+          "ci95": [
+            0.963,
+            1.0
+          ]
+        },
+        "generalizes": {
+          "successes": 94,
+          "total": 100,
+          "rate": 0.94,
+          "ci95": [
+            0.8752,
+            0.9722
+          ]
+        },
+        "exact": {
+          "successes": 94,
+          "total": 100,
+          "rate": 0.94,
+          "ci95": [
+            0.8752,
+            0.9722
+          ]
+        },
+        "median_seconds_when_answered": 0.0066,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "2": {
+        "consistent": {
+          "successes": 98,
+          "total": 100,
+          "rate": 0.98,
+          "ci95": [
+            0.93,
+            0.9945
+          ]
+        },
+        "generalizes": {
+          "successes": 92,
+          "total": 100,
+          "rate": 0.92,
+          "ci95": [
+            0.85,
+            0.9589
+          ]
+        },
+        "exact": {
+          "successes": 90,
+          "total": 100,
+          "rate": 0.9,
+          "ci95": [
+            0.8256,
+            0.9448
+          ]
+        },
+        "median_seconds_when_answered": 0.0162,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "3": {
+        "consistent": {
+          "successes": 90,
+          "total": 100,
+          "rate": 0.9,
+          "ci95": [
+            0.8256,
+            0.9448
+          ]
+        },
+        "generalizes": {
+          "successes": 66,
+          "total": 100,
+          "rate": 0.66,
+          "ci95": [
+            0.5628,
+            0.7454
+          ]
+        },
+        "exact": {
+          "successes": 57,
+          "total": 100,
+          "rate": 0.57,
+          "ci95": [
+            0.4722,
+            0.6627
+          ]
+        },
+        "median_seconds_when_answered": 0.0488,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "4": {
+        "consistent": {
+          "successes": 71,
+          "total": 100,
+          "rate": 0.71,
+          "ci95": [
+            0.6146,
+            0.7899
+          ]
+        },
+        "generalizes": {
+          "successes": 46,
+          "total": 100,
+          "rate": 0.46,
+          "ci95": [
+            0.3656,
+            0.5574
+          ]
+        },
+        "exact": {
+          "successes": 31,
+          "total": 100,
+          "rate": 0.31,
+          "ci95": [
+            0.2278,
+            0.4063
+          ]
+        },
+        "median_seconds_when_answered": 0.0906,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "5": {
+        "consistent": {
+          "successes": 25,
+          "total": 100,
+          "rate": 0.25,
+          "ci95": [
+            0.1755,
+            0.343
+          ]
+        },
+        "generalizes": {
+          "successes": 15,
+          "total": 100,
+          "rate": 0.15,
+          "ci95": [
+            0.0931,
+            0.2328
+          ]
+        },
+        "exact": {
+          "successes": 6,
+          "total": 100,
+          "rate": 0.06,
+          "ci95": [
+            0.0278,
+            0.1248
+          ]
+        },
+        "median_seconds_when_answered": 0.2014,
+        "regex_timeouts": 1,
+        "undecided": 0,
+        "unconfirmed": 0
+      }
+    },
+    "guided": {
+      "0": {
+        "consistent": {
+          "successes": 32,
+          "total": 36,
+          "rate": 0.8889,
+          "ci95": [
+            0.7468,
+            0.9559
+          ]
+        },
+        "generalizes": {
+          "successes": 25,
+          "total": 36,
+          "rate": 0.6944,
+          "ci95": [
+            0.5314,
+            0.82
+          ]
+        },
+        "exact": {
+          "successes": 18,
+          "total": 36,
+          "rate": 0.5,
+          "ci95": [
+            0.3447,
+            0.6553
+          ]
+        },
+        "median_seconds_when_answered": 0.0273,
+        "regex_timeouts": 21,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "1": {
+        "consistent": {
+          "successes": 100,
+          "total": 100,
+          "rate": 1.0,
+          "ci95": [
+            0.963,
+            1.0
+          ]
+        },
+        "generalizes": {
+          "successes": 94,
+          "total": 100,
+          "rate": 0.94,
+          "ci95": [
+            0.8752,
+            0.9722
+          ]
+        },
+        "exact": {
+          "successes": 94,
+          "total": 100,
+          "rate": 0.94,
+          "ci95": [
+            0.8752,
+            0.9722
+          ]
+        },
+        "median_seconds_when_answered": 0.0074,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "2": {
+        "consistent": {
+          "successes": 99,
+          "total": 100,
+          "rate": 0.99,
+          "ci95": [
+            0.9455,
+            0.9982
+          ]
+        },
+        "generalizes": {
+          "successes": 92,
+          "total": 100,
+          "rate": 0.92,
+          "ci95": [
+            0.85,
+            0.9589
+          ]
+        },
+        "exact": {
+          "successes": 90,
+          "total": 100,
+          "rate": 0.9,
+          "ci95": [
+            0.8256,
+            0.9448
+          ]
+        },
+        "median_seconds_when_answered": 0.0202,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "3": {
+        "consistent": {
+          "successes": 92,
+          "total": 100,
+          "rate": 0.92,
+          "ci95": [
+            0.85,
+            0.9589
+          ]
+        },
+        "generalizes": {
+          "successes": 65,
+          "total": 100,
+          "rate": 0.65,
+          "ci95": [
+            0.5525,
+            0.7364
+          ]
+        },
+        "exact": {
+          "successes": 57,
+          "total": 100,
+          "rate": 0.57,
+          "ci95": [
+            0.4722,
+            0.6627
+          ]
+        },
+        "median_seconds_when_answered": 0.0604,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "4": {
+        "consistent": {
+          "successes": 81,
+          "total": 100,
+          "rate": 0.81,
+          "ci95": [
+            0.7222,
+            0.8749
+          ]
+        },
+        "generalizes": {
+          "successes": 53,
+          "total": 100,
+          "rate": 0.53,
+          "ci95": [
+            0.4329,
+            0.6249
+          ]
+        },
+        "exact": {
+          "successes": 34,
+          "total": 100,
+          "rate": 0.34,
+          "ci95": [
+            0.2546,
+            0.4372
+          ]
+        },
+        "median_seconds_when_answered": 0.1033,
+        "regex_timeouts": 2,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "5": {
+        "consistent": {
+          "successes": 43,
+          "total": 100,
+          "rate": 0.43,
+          "ci95": [
+            0.3373,
+            0.5278
+          ]
+        },
+        "generalizes": {
+          "successes": 24,
+          "total": 100,
+          "rate": 0.24,
+          "ci95": [
+            0.1669,
+            0.3323
+          ]
+        },
+        "exact": {
+          "successes": 7,
+          "total": 100,
+          "rate": 0.07,
+          "ci95": [
+            0.0343,
+            0.1375
+          ]
+        },
+        "median_seconds_when_answered": 0.2816,
+        "regex_timeouts": 10,
+        "undecided": 0,
+        "unconfirmed": 0
+      }
+    },
+    "top1": {
+      "0": {
+        "consistent": {
+          "successes": 14,
+          "total": 36,
+          "rate": 0.3889,
+          "ci95": [
+            0.2478,
+            0.5514
+          ]
+        },
+        "generalizes": {
+          "successes": 12,
+          "total": 36,
+          "rate": 0.3333,
+          "ci95": [
+            0.2021,
+            0.4967
+          ]
+        },
+        "exact": {
+          "successes": 10,
+          "total": 36,
+          "rate": 0.2778,
+          "ci95": [
+            0.1585,
+            0.4399
+          ]
+        },
+        "median_seconds_when_answered": 0.0179,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "1": {
+        "consistent": {
+          "successes": 94,
+          "total": 100,
+          "rate": 0.94,
+          "ci95": [
+            0.8752,
+            0.9722
+          ]
+        },
+        "generalizes": {
+          "successes": 89,
+          "total": 100,
+          "rate": 0.89,
+          "ci95": [
+            0.8137,
+            0.9375
+          ]
+        },
+        "exact": {
+          "successes": 89,
+          "total": 100,
+          "rate": 0.89,
+          "ci95": [
+            0.8137,
+            0.9375
+          ]
+        },
+        "median_seconds_when_answered": 0.0066,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "2": {
+        "consistent": {
+          "successes": 78,
+          "total": 100,
+          "rate": 0.78,
+          "ci95": [
+            0.6893,
+            0.85
+          ]
+        },
+        "generalizes": {
+          "successes": 75,
+          "total": 100,
+          "rate": 0.75,
+          "ci95": [
+            0.657,
+            0.8245
+          ]
+        },
+        "exact": {
+          "successes": 74,
+          "total": 100,
+          "rate": 0.74,
+          "ci95": [
+            0.6463,
+            0.816
+          ]
+        },
+        "median_seconds_when_answered": 0.0174,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "3": {
+        "consistent": {
+          "successes": 52,
+          "total": 100,
+          "rate": 0.52,
+          "ci95": [
+            0.4232,
+            0.6154
+          ]
+        },
+        "generalizes": {
+          "successes": 44,
+          "total": 100,
+          "rate": 0.44,
+          "ci95": [
+            0.3467,
+            0.5377
+          ]
+        },
+        "exact": {
+          "successes": 43,
+          "total": 100,
+          "rate": 0.43,
+          "ci95": [
+            0.3373,
+            0.5278
+          ]
+        },
+        "median_seconds_when_answered": 0.0296,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "4": {
+        "consistent": {
+          "successes": 29,
+          "total": 100,
+          "rate": 0.29,
+          "ci95": [
+            0.2101,
+            0.3854
+          ]
+        },
+        "generalizes": {
+          "successes": 23,
+          "total": 100,
+          "rate": 0.23,
+          "ci95": [
+            0.1584,
+            0.3215
+          ]
+        },
+        "exact": {
+          "successes": 19,
+          "total": 100,
+          "rate": 0.19,
+          "ci95": [
+            0.1251,
+            0.2778
+          ]
+        },
+        "median_seconds_when_answered": 0.0472,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      },
+      "5": {
+        "consistent": {
+          "successes": 3,
+          "total": 100,
+          "rate": 0.03,
+          "ci95": [
+            0.0103,
+            0.0845
+          ]
+        },
+        "generalizes": {
+          "successes": 3,
+          "total": 100,
+          "rate": 0.03,
+          "ci95": [
+            0.0103,
+            0.0845
+          ]
+        },
+        "exact": {
+          "successes": 2,
+          "total": 100,
+          "rate": 0.02,
+          "ci95": [
+            0.0055,
+            0.07
+          ]
+        },
+        "median_seconds_when_answered": 0.0796,
+        "regex_timeouts": 0,
+        "undecided": 0,
+        "unconfirmed": 0
+      }
+    }
+  }
+}

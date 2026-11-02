@@ -1,0 +1,174 @@
+{
+  "guided_vs_filter_exact": {
+    "0": {
+      "only_guided": 0,
+      "only_filter": 1,
+      "both": 18,
+      "tasks": 36
+    },
+    "1": {
+      "only_guided": 0,
+      "only_filter": 0,
+      "both": 94,
+      "tasks": 100
+    },
+    "2": {
+      "only_guided": 0,
+      "only_filter": 0,
+      "both": 90,
+      "tasks": 100
+    },
+    "3": {
+      "only_guided": 1,
+      "only_filter": 1,
+      "both": 56,
+      "tasks": 100
+    },
+    "4": {
+      "only_guided": 3,
+      "only_filter": 0,
+      "both": 31,
+      "tasks": 100
+    },
+    "5": {
+      "only_guided": 1,
+      "only_filter": 0,
+      "both": 6,
+      "tasks": 100
+    }
+  },
+  "guided_vs_filter_consistent": {
+    "0": {
+      "only_guided": 2,
+      "only_filter": 0,
+      "both": 30,
+      "tasks": 36
+    },
+    "1": {
+      "only_guided": 0,
+      "only_filter": 0,
+      "both": 100,
+      "tasks": 100
+    },
+    "2": {
+      "only_guided": 1,
+      "only_filter": 0,
+      "both": 98,
+      "tasks": 100
+    },
+    "3": {
+      "only_guided": 2,
+      "only_filter": 0,
+      "both": 90,
+      "tasks": 100
+    },
+    "4": {
+      "only_guided": 10,
+      "only_filter": 0,
+      "both": 71,
+      "tasks": 100
+    },
+    "5": {
+      "only_guided": 19,
+      "only_filter": 1,
+      "both": 24,
+      "tasks": 100
+    }
+  },
+  "guided_vs_enumerative_exact": {
+    "0": {
+      "only_guided": 14,
+      "only_enumerative": 1,
+      "both": 4,
+      "tasks": 36
+    },
+    "1": {
+      "only_guided": 11,
+      "only_enumerative": 1,
+      "both": 83,
+      "tasks": 100
+    },
+    "2": {
+      "only_guided": 78,
+      "only_enumerative": 2,
+      "both": 12,
+      "tasks": 100
+    },
+    "3": {
+      "only_guided": 57,
+      "only_enumerative": 0,
+      "both": 0,
+      "tasks": 100
+    },
+    "4": {
+      "only_guided": 34,
+      "only_enumerative": 0,
+      "both": 0,
+      "tasks": 100
+    },
+    "5": {
+      "only_guided": 7,
+      "only_enumerative": 0,
+      "both": 0,
+      "tasks": 100
+    }
+  },
+  "guided_vs_enumerative_generalizes": {
+    "0": {
+      "only_guided": 14,
+      "only_enumerative": 1,
+      "both": 11,
+      "tasks": 36
+    },
+    "1": {
+      "only_guided": 8,
+      "only_enumerative": 1,
+      "both": 86,
+      "tasks": 100
+    },
+    "2": {
+      "only_guided": 65,
+      "only_enumerative": 2,
+      "both": 27,
+      "tasks": 100
+    },
+    "3": {
+      "only_guided": 64,
+      "only_enumerative": 1,
+      "both": 1,
+      "tasks": 100
+    },
+    "4": {
+      "only_guided": 52,
+      "only_enumerative": 0,
+      "both": 1,
+      "tasks": 100
+    },
+    "5": {
+      "only_guided": 24,
+      "only_enumerative": 0,
+      "both": 0,
+      "tasks": 100
+    }
+  },
+  "search_effort": {
+    "filter": {
+      "median_widest_pass": 16,
+      "mean_regex_runs": 1682.4,
+      "mean_sketches_pruned": 0.0,
+      "regex_timeouts": 1,
+      "tasks_with_a_timeout": 1
+    },
+    "guided": {
+      "median_widest_pass": 16,
+      "mean_regex_runs": 1671.4,
+      "mean_sketches_pruned": 851.1,
+      "regex_timeouts": 33,
+      "tasks_with_a_timeout": 6
+    },
+    "enumerative": {
+      "median_candidates_per_second": 106707.4444902379,
+      "median_max_cost_finished": 4
+    }
+  }
+}

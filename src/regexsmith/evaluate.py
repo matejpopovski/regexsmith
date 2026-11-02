@@ -13,9 +13,11 @@ Grading uses the derivative engine, so a pathological answer cannot stall the gr
 
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import multiprocessing
+import platform
 import random
 import time
 from collections.abc import Callable, Iterable
@@ -63,7 +65,7 @@ def grade(task: Task, answer: Node | None) -> dict:
         "generalizes": False,
         "exact": False,
         "witness": None,
-        "catastrophic": False,
+        "undecided": False,
     }
     if answer is None:
         return grades
@@ -82,6 +84,7 @@ def grade(task: Task, answer: Node | None) -> dict:
         generalizes=consistent and hidden_right,
         exact=consistent and comparison.equal is True,
         witness=comparison.witness,
+        undecided=comparison.equal is None,
     )
     return grades
 
@@ -191,7 +194,11 @@ def summarize(records: list[dict]) -> dict:
             per_tier[str(tier)]["median_seconds_when_answered"] = (
                 round(times[len(times) // 2], 4) if times else None
             )
-            per_tier[str(tier)]["timeouts"] = sum(r.get("timeouts", 0) for r in rows)
+            per_tier[str(tier)]["regex_timeouts"] = sum(r.get("timeouts", 0) for r in rows)
+            per_tier[str(tier)]["undecided"] = sum(r["undecided"] for r in rows)
+            per_tier[str(tier)]["unconfirmed"] = sum(
+                r["consistent"] and not r["confirmed"] for r in rows
+            )
         summary[method] = per_tier
     return summary
 
@@ -203,6 +210,28 @@ def write_results(records: list[dict], out_dir: Path, meta: dict) -> None:
             stream.write(json.dumps(record) + "\n")
     summary = {"meta": meta, "methods": summarize(records)}
     (out_dir / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+
+
+def merge_runs(runs: list[Path], out_dir: Path) -> None:
+    """Combine method runs that were executed in parallel into one result set."""
+    records = []
+    for run in runs:
+        records += [json.loads(line) for line in (run / "records.jsonl").read_text().splitlines()]
+    meta = json.loads((runs[0] / "summary.json").read_text())["meta"]
+    write_results(records, out_dir, meta)
+
+
+def _run_metadata(budget: float, tasks: list[Task], device: str, checkpoint: Path) -> dict:
+    return {
+        "budget_seconds": budget,
+        "tasks": len(tasks),
+        "device": device,
+        "platform": platform.platform(),
+        "python": platform.python_version(),
+        "checkpoint_sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest()
+        if checkpoint.exists()
+        else None,
+    }
 
 
 def run_benchmark(
@@ -242,6 +271,5 @@ def run_benchmark(
             )
         records.extend(rows)
         log(f"{method}: finished in {time.perf_counter() - started:.0f} s")
-        meta = {"budget_seconds": budget, "tasks": len(tasks), "device": device}
-        write_results(records, out_dir, meta)
+        write_results(records, out_dir, _run_metadata(budget, tasks, device, checkpoint))
     return records

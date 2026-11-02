@@ -128,9 +128,16 @@ class DecoderLayer(nn.Module):
         memory_mask: Tensor,
     ) -> Tensor:
         x = x + self.self_attention.attend(norm, self_keys, self_values, self_mask)
-        cross = self.cross_attention.attend(
-            self.norm_cross(x), memory_keys, memory_values, memory_mask
-        )
+        query = self.norm_cross(x)
+        if memory_keys.shape[0] == 1 and x.shape[1] == 1:
+            # All beams share one memory. Treating beams as positions of a single sequence
+            # avoids broadcasting the memory across the batch inside matmul, which was
+            # over half of the search's run time.
+            cross = self.cross_attention.attend(
+                query.transpose(0, 1), memory_keys, memory_values, memory_mask
+            ).transpose(0, 1)
+        else:
+            cross = self.cross_attention.attend(query, memory_keys, memory_values, memory_mask)
         x = x + cross
         return x + self.ff(self.norm_ff(x))
 
